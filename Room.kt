@@ -1,4 +1,8 @@
-class Room (private val roomId: String, roomName: String, numberOfComputers: Int) {
+class Room (
+    private val roomId: Int,
+    private val roomName: String,
+    private val numberOfComputers: Int
+) {
 
     // Variables
     private val rooms = mutableMapOf<String, Room>()
@@ -31,10 +35,9 @@ class Room (private val roomId: String, roomName: String, numberOfComputers: Int
 
 
     //* Generate Room ID automatically
-    private fun generateUniqueRoomId(): String {
-        val newRoomId = "RoomID: $createUniqueRoomId"
+    private fun generateUniqueRoomId(): Int {
         createUniqueRoomId++
-        return newRoomId
+        return createUniqueRoomId
     }
 
 
@@ -46,7 +49,7 @@ class Room (private val roomId: String, roomName: String, numberOfComputers: Int
             return
         }
 
-        // If there are no rooms available
+        //! If there are no rooms available
         if (rooms.isEmpty()) {
             println("No rooms available")
             return
@@ -54,7 +57,8 @@ class Room (private val roomId: String, roomName: String, numberOfComputers: Int
 
         // Loop through rooms
         for ((roomId, room) in rooms) {
-            println("Room ID: $roomId")
+            println("\nRoom Name: ${room.roomName}")
+            println("Number of Computers: ${room.numberOfComputers}")
 
             var hasBookings = false
 
@@ -74,9 +78,9 @@ class Room (private val roomId: String, roomName: String, numberOfComputers: Int
                     }
                 }
             }
-            // If there are no bookings
+            //! If there are no bookings
             if (!hasBookings) {
-                println("\tNo bookings in ${room.roomId}")
+                println("\tNo bookings in '${room.roomName}'")
             }
         }
     }
@@ -90,7 +94,7 @@ class Room (private val roomId: String, roomName: String, numberOfComputers: Int
         }
 
         // Automatically generate Unique ID
-        val roomId = generateUniqueRoomId()
+        val generatedRoomId = generateUniqueRoomId()
 
         // User inputs name of the Room
         println("\nEnter the name of the Room:")
@@ -100,7 +104,7 @@ class Room (private val roomId: String, roomName: String, numberOfComputers: Int
         println("\nEnter the number of computers in the room:")
         val inputNumberOfComputers = readln().toInt()
 
-        // Input validation so input isn't equal or below 0
+        //! Input validation so input isn't equal or below 0
         if (inputNumberOfComputers <= 0) {
             println("Invalid number of computers")
             return
@@ -108,11 +112,10 @@ class Room (private val roomId: String, roomName: String, numberOfComputers: Int
 
         // New room is created with: ID, Name and number of computers
         val room = Room(roomId, inputRoomName, inputNumberOfComputers)
-        rooms[roomId] = room
+        rooms[generatedRoomId.toString()] = room
 
         // Confirmation message
-        println("Room '$roomId' with the name '$inputRoomName' and '$inputNumberOfComputers' computers has been added successfully!\n")
-
+        println("Room '$inputRoomName' with '${inputNumberOfComputers}' computers has been added successfully!\n")
     }
 
 
