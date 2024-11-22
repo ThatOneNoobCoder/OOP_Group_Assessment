@@ -57,18 +57,23 @@ class BookingSystem {
 
     fun removeBooking(user: String, computerId: String, dateStr: String, slot: String): Boolean {
         // Remove booking by computer ID
-        val booking = reservations.find { it.user == user && it.computerId == computerId && it.date == dateStr && it.timeSlot == slot }
+        val booking = reservations.find {
+            it.user == user && it.computerId == computerId && it.date == dateStr && it.timeSlot == slot
+        }
 
         return if (booking != null) {
             reservations.remove(booking)
-            val computerIdParts = computerId.split("-")
+            val computerIdParts = computerId.split("-") // Expect format like "101-1"
             if (computerIdParts.size > 1) {
                 val labRoom = computerIdParts[0]
-                val computerId = computerIdParts[1]
+                val computerIdParsed = computerIdParts[1]
+
                 val lab = labs.find { it.roomNumber == labRoom }
-                lab?.computers?.find { it.id == computerId }?.isBooked = false
+                lab?.computers?.find { it.id == computerIdParsed }?.isBooked = false
             }
             true
         } else false
     }
+
+
 }
