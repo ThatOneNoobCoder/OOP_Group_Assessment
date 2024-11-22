@@ -1,3 +1,4 @@
+// (Tim Reynolds)
 // ---- Class for Lab.kt ----
 
 class Lab(

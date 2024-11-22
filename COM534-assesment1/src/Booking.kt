@@ -1,4 +1,4 @@
-// -- Booking.kt --
+// -- Booking.kt -- ( Tim Reynolds)
 
 data class Booking(
     val user: String,
