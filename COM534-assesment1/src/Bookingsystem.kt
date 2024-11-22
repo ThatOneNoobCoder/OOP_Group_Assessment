@@ -63,7 +63,7 @@ class BookingSystem {
 
         return if (booking != null) {
             reservations.remove(booking)
-            val computerIdParts = computerId.split("-") // Expect format like "101-1"
+            val computerIdParts = computerId.split("-")
             if (computerIdParts.size > 1) {
                 val labRoom = computerIdParts[0]
                 val computerIdParsed = computerIdParts[1]
