@@ -1,8 +1,15 @@
 fun main() {
     val bookingSystem = BookingSystem()
+    
+    // Sam's project work
+
+    val loginSystem = LoginSystem()
+
+    val room = Room(1, "Spark", 5)
+    //end
 
     println("++ ++ Computer Reservation System! ++ ++")
-    var user = "student123"
+    val user = "student123"
 
 
     while (true) {
@@ -11,16 +18,20 @@ fun main() {
         println("2. Book a computer")
         println("3. View current bookings")
         println("4. Cancel a booking")
-        println("5. Exit")
+        // Sam's project work
+        println("5. View list of bookings (Admin only)")
+        println("6. Add new room (Admin only)")
+        //end
+        println("7. Exit")
         print("Enter choice: ")
 
-        when (readLine()) {
+        when (readln()) {
             "1" -> {
                 // Search labs
                 print("Enter building (e.g., A, B): ")
-                val building = readLine()!!
+                val building = readln()
                 print("Enter OS type (e.g., Windows, Mac, Linux): ")
-                val osType = readLine()!!
+                val osType = readln()
 
                 val labs = bookingSystem.findLabs(building, osType)
                 if (labs.isEmpty()) {
@@ -34,15 +45,15 @@ fun main() {
             "2" -> {
                 // Book a computer
                 print("Enter building (e.g., A, B): ")
-                val building = readLine()!!
+                val building = readln()
                 print("Enter room number (e.g., 101, 102): ")
-                val room = readLine()!!
+                val inputRoom = readln()
                 print("Enter date (yyyy-MM-dd): ")
-                val dateStr = readLine()!!
+                val dateStr = readln()
                 print("Enter time slot (e.g., 9-11am, 11am-1pm): ")
-                val timeSlot = readLine()!!
+                val timeSlot = readln()
 
-                val computerId = bookingSystem.reserveComputer(user, building, room, dateStr, timeSlot)
+                val computerId = bookingSystem.reserveComputer(user, building, inputRoom, dateStr, timeSlot)
                 if (computerId != null) {
                     println("Successfully booked computer ID: $computerId")
                 } else {
@@ -64,11 +75,11 @@ fun main() {
             "4" -> {
                 // Cancel a booking
                 print("Enter computer ID to cancel (e.g., 101-1): ")
-                val computerId = readLine()!!
+                val computerId = readln()
                 print("Enter date (yyyy-MM-dd): ")
-                val dateStr = readLine()!!
+                val dateStr = readln()
                 print("Enter time slot (e.g., 9-11am, 11am-1pm): ")
-                val timeSlot = readLine()!!
+                val timeSlot = readln()
 
                 val success = bookingSystem.removeBooking(user, computerId, dateStr, timeSlot)
                 if (success) {
@@ -78,7 +89,30 @@ fun main() {
                 }
             }
 
+            // Sam's project work
+
             "5" -> {
+                println("Enter username: ")
+                val inputUsername = readln()
+
+                println("Enter password: ")
+                val inputPassword = readln()
+
+                room.addNewRoom(loginSystem.login(inputUsername, inputPassword))
+            }
+
+            "6" -> {
+                println("Enter username: ")
+                val inputUsername = readln()
+
+                println("Enter password: ")
+                val inputPassword = readln()
+
+                room.addNewRoom(loginSystem.login(inputUsername, inputPassword))
+            }
+            // end
+
+            "7" -> {
                 // Exit
                 println("Exiting the system.")
                 break
